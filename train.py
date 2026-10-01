@@ -7,6 +7,8 @@ from model import Model
 
 embed_n = 0
 embed_d = 0
+block_size = 0
+pos_embed_d = 0   
 hidden_d = 0
 win_d = 0 
 
@@ -31,9 +33,9 @@ if __name__ == '__main__':
     _handle_args()
     meta = _get_meta()
     stoi, itos = meta['stoi'], meta['itos'] 
-    model = Model(embed_n, embed_d, hidden_d, win_d)
+    model = Model(embed_n, embed_d, block_size, pos_embed_d, hidden_d, win_d)
 
     s = 'hello world!'
     ids = torch.tensor(encode(stoi, s), dtype=torch.long).unsqueeze(0) # add batch dim?
-    res = model(ids)
-    print(res.shape)
+    logits, loss = model(ids)
+    print(logits.shape)
