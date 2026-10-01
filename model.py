@@ -49,3 +49,7 @@ class Model(nn.Module):
             loss = nn.functional.cross_entropy(logits, targets)
 
         return logits, loss
+
+    def configure_optimizer(self, lr): 
+        return torch.optim.SGD(self.parameters(), lr=lr)
+    

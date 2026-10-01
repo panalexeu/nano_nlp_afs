@@ -16,8 +16,12 @@ pos_embed_d = 0
 hidden_d = 0
 win_d = 0 
 # training 
-epochs = ... 
-steps = ... 
+epochs = 0 
+steps = 0
+eval_steps = 0 
+lr = 0 
+logging_steps = 1000
+
 
 def _handle_args(): 
     for arg in sys.argv[1:]: 
@@ -44,13 +48,29 @@ def encode(stoi: dict, s: str):
 def decode(itos: dict, ids: list[int]):
     return ''.join(itos[id_] for id_ in ids)
 
+_ema_loss = None
+_ema_alpha = 0.001 
+def ema(loss: float) -> float: 
+     return _ema_alpha * loss + (1-_ema_alpha) * _ema_loss
+
 if __name__ == '__main__': 
     _handle_args()
+    torch.manual_seed(2004)
     meta = _get_meta()
     stoi, itos = meta['stoi'], meta['itos'] 
     model = Model(embed_n, embed_d, block_size, pos_embed_d, hidden_d, win_d)
+    optimizer = model.configure_optimizer(lr)
 
-    x, y = _get_sample('val')
-    logits, loss = model(x, y)
-    print(logits.shape)
-    print(loss.item())
+    for i in range(steps): 
+        optimizer.zero_grad() # backrpop on 1 sample 
+        x, y = _get_sample('train')
+        logits, loss = model(x, y)
+        loss.backward()
+        optimizer.step()
+        
+
+        _ema_loss = loss.item() if _ema_loss is None else _ema_loss
+        _ema_loss = ema(loss.item())
+        if i % logging_steps == 0: 
+            print(f'loss, step {i}: {loss.item():.4f} ema loss: {_ema_loss:.4f}')
+ 
