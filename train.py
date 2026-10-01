@@ -73,4 +73,12 @@ if __name__ == '__main__':
         _ema_loss = ema(loss.item())
         if i % logging_steps == 0: 
             print(f'loss, step {i}: {loss.item():.4f} ema loss: {_ema_loss:.4f}')
- 
+
+    model.eval()
+    losses = torch.zeros(eval_steps)
+    for i in range(eval_steps): 
+        x, y = _get_sample('val')
+        logits, loss = model(x, y)
+        losses[i] = loss
+    print(f'eval set loss: {losses.mean()}')
+    
