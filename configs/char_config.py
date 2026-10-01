@@ -7,5 +7,5 @@ hidden_d = 300
 win_d = 5
 lr = 1e-3 # 1e-2 from the paper causes training instability => lowered lr
 epochs = 3
-steps = int(1_003_854 / block_size) * epochs
+steps = 1_003_854 * epochs
 eval_steps = 111_540 
