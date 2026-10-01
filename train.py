@@ -34,5 +34,6 @@ if __name__ == '__main__':
     model = Model(embed_n, embed_d, hidden_d, win_d)
 
     s = 'hello world!'
-    ids = torch.tensor(encode(stoi, s), dtype=torch.long)
+    ids = torch.tensor(encode(stoi, s), dtype=torch.long).unsqueeze(0) # add batch dim?
     res = model(ids)
+    print(res.shape)
