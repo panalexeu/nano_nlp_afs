@@ -5,7 +5,8 @@ import requests
 import numpy as np
 
 # download the tiny shakespeare dataset
-input_file_path = os.path.join(os.path.dirname(__file__), 'input.txt')
+data_dir = './data'
+input_file_path = os.path.join(data_dir, 'input.txt')
 if not os.path.exists(input_file_path):
     data_url = 'https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt'
     with open(input_file_path, 'w') as f:
@@ -41,8 +42,8 @@ print(f"val has {len(val_ids):,} tokens")
 # export to bin files
 train_ids = np.array(train_ids, dtype=np.uint16)
 val_ids = np.array(val_ids, dtype=np.uint16)
-train_ids.tofile(os.path.join(os.path.dirname(__file__), 'train.bin'))
-val_ids.tofile(os.path.join(os.path.dirname(__file__), 'val.bin'))
+train_ids.tofile(os.path.join(data_dir, 'train.bin'))
+val_ids.tofile(os.path.join(data_dir, 'val.bin'))
 
 # save the meta information as well, to help us encode/decode later
 meta = {
@@ -50,7 +51,7 @@ meta = {
     'itos': itos,
     'stoi': stoi,
 }
-with open(os.path.join(os.path.dirname(__file__), 'meta.pkl'), 'wb') as f:
+with open(os.path.join(data_dir, 'meta.pkl'), 'wb') as f:
     pickle.dump(meta, f)
 
 # length of dataset in characters:  1115394

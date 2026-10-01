@@ -1,6 +1,3 @@
 .venv 
 data/
 __pycache__/
-*.bin
-*.pkl
-input.txt

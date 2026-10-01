@@ -5,3 +5,5 @@ block_size = 256
 pos_embed_d = 14   
 hidden_d = 300
 win_d = 5
+epochs = 3
+steps = int(1003854 / block_size) * epochs
