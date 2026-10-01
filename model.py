@@ -9,11 +9,20 @@ class Model(nn.Module):
         win_d: int  
     ): 
         super().__init__() 
-        self.emb = nn.Embedding(embed_n, embed_d) 
+        self.embed_n = embed_n
+        self.embed_d = embed_d  
+        self.hidden_d = hidden_d 
+        self.win_d = win_d 
+        
+        self.pad_token = embed_n
+        self.pad_s = int(win_d/2) 
+        self.emb = nn.Embedding(embed_n+1, embed_d) 
+        # self.conv = nn.Conv1d()
 
-    def forward(self, idx, targets=None): 
-        # b - batch size  
+
+    def forward(self, ids, targets=None): 
         # s - seq. len.
-        # idx shape [b, s] 
-        x = self.emb(idx)
+        # ids shape [s] 
+        x = nn.functional.pad(ids, (self.pad_s, self.pad_s), mode='constant', value=self.pad_token)
+        x = self.emb(x) # [s, embed_d]
         return x 
