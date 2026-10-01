@@ -76,9 +76,10 @@ if __name__ == '__main__':
 
     model.eval()
     losses = torch.zeros(eval_steps)
-    for i in range(eval_steps): 
-        x, y = _get_sample('val')
-        logits, loss = model(x, y)
-        losses[i] = loss
-    print(f'eval set loss: {losses.mean()}')
+    with torch.no_grad():
+        for i in range(eval_steps):
+            x, y = _get_sample('val')
+            logits, loss = model(x, y)
+            losses[i] = loss.item()
+    print(f'eval set loss: {losses.mean():.4f}')
     
