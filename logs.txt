@@ -1,2 +1,0 @@
-loss, step 3011000: 0.3951 ema loss: 1.4671
-eval set loss: 1.7475
