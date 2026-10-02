@@ -6,6 +6,6 @@ pos_embed_d = 14
 hidden_d = 300
 win_d = 5
 lr = 1e-3 # 1e-2 from the paper causes training instability => lowered lr
-epochs = 3
-steps = 100 # 1_003_854 * epochs
-eval_steps = 100 # 111_540 
+epochs = 1
+steps = 1_003_854 * epochs
+eval_steps = 111_540 
