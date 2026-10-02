@@ -1,4 +1,6 @@
-.venv 
-data/
+.venv
+data/*
+!data/tiny_shaekspere.py
+!data/tiny_shevchenko.py
 __pycache__/
 ckpt.pt
