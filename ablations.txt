@@ -1,15 +1,17 @@
---- ckpt.pt, default, 1 epoch, win_d 5
+--- ckpt.pt, default, 1 epoch, win_d 5, pos_emb
 loss, step 3011000: 0.3951 ema loss: 1.4671
 eval set loss: 1.7475
---- ckpt1.pt, default, 1 epoch, win_d 5
+--- ckpt1.pt, default, 1 epoch, win_d 5, pos_emb
 loss, step 1003000: 0.0530 ema loss: 1.8382
 eval set loss: 2.0014
---- ckpt2.pt, dropouts, 1 epoch, win_d 5
+--- ckpt2.pt, dropouts, 1 epoch, win_d 5, pos_emb
 
---- ckpt3.pt, dropouts, 3 epochsm win_d 5
+--- ckpt3.pt, dropouts, 3 epochsm win_d 5, pos_emb
 
---- ckpt4.pt, dropouts, n epochs, win_d 9
+--- ckpt4.pt, dropouts, n epochs, win_d 9, pos_emb
 
---- ckpt5.pt, dropouts, n epochs, win_d 15
+--- ckpt5.pt, dropouts, n epochs, win_d 15, pos_emb
 
---- ckpt6.pt, dropouts, n epochs, win_d n, add lr
+--- ckpt6.pt, dropouts, n epochs, win_d n, add lr, pos_emb
+
+--- ckpt7.pt, default, 1 epoch, win_d 5, no pos_emb 
