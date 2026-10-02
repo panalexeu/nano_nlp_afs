@@ -35,6 +35,7 @@ class Model(nn.Module):
         self.pool = nn.AdaptiveMaxPool1d(output_size=1)
         self.f_2  = nn.Linear(in_features=hidden_d, out_features=hidden_d*2)
         self.f_3 = nn.Linear(in_features=hidden_d*2, out_features=embed_n)
+        self.drop = nn.Dropout(p=0.1)
 
     def forward(self, ids, targets=None): 
         b,s = ids.shape
@@ -45,9 +46,11 @@ class Model(nn.Module):
         x = x.transpose(1,2) # [b, embed_d + pos_embed_d, padded_s] cause conv1d expects (batch, channels, len)
         x = self.f_1(x) # [b, hidden_d, s]
         x = self.pool(x) # [b, hidden_d, 1]        
+        x = self.drop(x)
         x = x.squeeze(-1) # [b, hidden_d]
         x = self.f_2(x) # [b, hidden_d*2]
         x = nn.functional.hardtanh(x) 
+        x = self.drop(x)
         logits = self.f_3(x) # [b, vocab]
 
         loss = None 
