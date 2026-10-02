@@ -19,7 +19,8 @@ win_d = 0
 epochs = 0 
 steps = 0
 eval_steps = 0 
-lr = 0 
+lr = 0
+min_lr = 0 
 logging_steps = 1000
 eval_logging_steps = 100_000
 
@@ -68,7 +69,8 @@ if __name__ == '__main__':
     torch.manual_seed(2004)
     meta = _get_meta()
     model = Model(embed_n, embed_d, block_size, pos_embed_d, hidden_d, win_d, meta['stoi'], meta['itos'])
-    optimizer = model.configure_optimizer(lr)
+    optimizer = torch.optim.SGD(model.parameters(), lr=lr)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, steps, eta_min=min_lr)
 
     for i in range(steps): 
         optimizer.zero_grad() # backrpop on 1 sample 
@@ -76,7 +78,7 @@ if __name__ == '__main__':
         logits, loss = model(x, y)
         loss.backward()
         optimizer.step()
-        
+        scheduler.step()
 
         _ema_loss = loss.item() if _ema_loss is None else _ema_loss
         _ema_loss = ema(loss.item())

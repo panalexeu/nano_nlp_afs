@@ -59,9 +59,6 @@ class Model(nn.Module):
 
         return logits, loss
 
-    def configure_optimizer(self, lr): 
-        return torch.optim.SGD(self.parameters(), lr=lr)
-
     @classmethod
     def from_pretrained(cls, ckpt_path='./ckpt.pt') -> Self:
         ckpt = torch.load(ckpt_path)
