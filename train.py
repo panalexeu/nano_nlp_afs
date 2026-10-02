@@ -83,7 +83,7 @@ if __name__ == '__main__':
         _ema_loss = loss.item() if _ema_loss is None else _ema_loss
         _ema_loss = ema(loss.item())
         if i % logging_steps == 0: 
-            print(f'loss, step {i}: {loss.item():.4f} ema loss: {_ema_loss:.4f}')
+            print(f'loss, step {i}: {loss.item():.4f} ema loss: {_ema_loss:.4f} lr: {scheduler.get_last_lr()[0]:.2e}')
 
         if i % eval_logging_steps == 0 or i == steps-1: 
             model.eval()
