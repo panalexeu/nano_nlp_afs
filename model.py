@@ -1,3 +1,5 @@
+from typing import Self 
+
 import torch 
 import torch.nn as nn 
 
@@ -9,7 +11,9 @@ class Model(nn.Module):
         pos_embed_n: int, 
         pos_embed_d: int, 
         hidden_d: int, 
-        win_d: int  
+        win_d: int, 
+        stoi: dict, 
+        itos: dict
     ): 
         super().__init__() 
         self.embed_n = embed_n
@@ -18,7 +22,9 @@ class Model(nn.Module):
         self.pos_embed_d = pos_embed_d 
         self.hidden_d = hidden_d 
         self.win_d = win_d 
-        
+        self.stoi = stoi
+        self.itos = itos 
+
         self.pad_token = embed_n
         self.pad_s = int(win_d/2) 
         self.emb = nn.Embedding(embed_n+1, embed_d) 
@@ -52,4 +58,17 @@ class Model(nn.Module):
 
     def configure_optimizer(self, lr): 
         return torch.optim.SGD(self.parameters(), lr=lr)
+
+    @classmethod
+    def from_pretrained(cls, ckpt_path='./ckpt.pt') -> Self:
+        ckpt = torch.load(ckpt_path)
+        model = cls(**ckpt['cfg'])
+        model.load_state_dict(ckpt['state'])
+        return model
+
+    def encode(self, s: str) -> list[int]: 
+        return [self.stoi[ch] for ch in s]
+
+    def decode(self, ids: list[int]) -> str: 
+        return ''.join(self.itos[id_] for id_ in ids)
     

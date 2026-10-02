@@ -22,7 +22,6 @@ eval_steps = 0
 lr = 0 
 logging_steps = 1000
 
-
 def _handle_args(): 
     for arg in sys.argv[1:]: 
         if arg.endswith('.py'):
@@ -41,12 +40,22 @@ def _get_sample(split: str):
     x = torch.from_numpy(data[pointer:pointer+size].astype(np.int64)).unsqueeze(0) # [1, size]
     y = torch.tensor(data[pointer+size], dtype=torch.long).unsqueeze(0) # [1, 1]
     return x, y 
-    
-def encode(stoi: dict, s: str): 
-    return [stoi[ch] for ch in s]
 
-def decode(itos: dict, ids: list[int]):
-    return ''.join(itos[id_] for id_ in ids)
+def _save_model(model: torch.nn.Module, ckpt_path: str = './ckpt.pt'):
+    dict_ = {
+        'cfg': {
+            'embed_n': model.embed_n,
+            'embed_d': model.embed_d, 
+            'pos_embed_n': model.pos_embed_n, 
+            'pos_embed_d': model.pos_embed_d, 
+            'hidden_d': model.hidden_d, 
+            'win_d': model.win_d, 
+            'stoi': model.stoi,
+            'itos': model.itos,
+        }, 
+        'state': model.state_dict()
+    }
+    torch.save(dict_, ckpt_path)
 
 _ema_loss = None
 _ema_alpha = 0.001 
@@ -57,8 +66,7 @@ if __name__ == '__main__':
     _handle_args()
     torch.manual_seed(2004)
     meta = _get_meta()
-    stoi, itos = meta['stoi'], meta['itos'] 
-    model = Model(embed_n, embed_d, block_size, pos_embed_d, hidden_d, win_d)
+    model = Model(embed_n, embed_d, block_size, pos_embed_d, hidden_d, win_d, meta['stoi'], meta['itos'])
     optimizer = model.configure_optimizer(lr)
 
     for i in range(steps): 
@@ -82,4 +90,5 @@ if __name__ == '__main__':
             logits, loss = model(x, y)
             losses[i] = loss.item()
     print(f'eval set loss: {losses.mean():.4f}')
-    
+
+    _save_model(model)
