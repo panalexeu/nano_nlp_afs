@@ -21,6 +21,7 @@ steps = 0
 eval_steps = 0 
 lr = 0 
 logging_steps = 1000
+eval_logging_steps = 100_000
 
 def _handle_args(): 
     for arg in sys.argv[1:]: 
@@ -82,13 +83,15 @@ if __name__ == '__main__':
         if i % logging_steps == 0: 
             print(f'loss, step {i}: {loss.item():.4f} ema loss: {_ema_loss:.4f}')
 
-    model.eval()
-    losses = torch.zeros(eval_steps)
-    with torch.no_grad():
-        for i in range(eval_steps):
-            x, y = _get_sample('val')
-            logits, loss = model(x, y)
-            losses[i] = loss.item()
-    print(f'eval set loss: {losses.mean():.4f}')
+        if i % eval_logging_steps == 0 or i == steps-1: 
+            model.eval()
+            losses = torch.zeros(eval_steps)
+            with torch.no_grad():
+                for j in range(eval_steps):
+                    x, y = _get_sample('val')
+                    logits, loss = model(x, y)
+                    losses[j] = loss.item()
+            print(f'eval set loss: {losses.mean():.4f}')
+            model.train()
 
     _save_model(model)
