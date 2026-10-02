@@ -5,7 +5,7 @@ import torch
 from model import Model
 
 if __name__ == '__main__': 
-    ckpt_path = './ckpt.pt'
+    ckpt_path = './ckpt1.pt'
     if not os.path.exists(ckpt_path):
         raise IOError(f'there is no saved {ckpt_path}')
     model = Model.from_pretrained(ckpt_path)
@@ -13,7 +13,7 @@ if __name__ == '__main__':
     model.eval()
     
     # sampling params 
-    t = 1.0 
+    t = 0.7
     max_tokens = 2048
     greedy = False
 
