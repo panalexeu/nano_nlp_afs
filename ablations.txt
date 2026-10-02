@@ -10,10 +10,12 @@ eval set loss: 1.9427
 --- ckpt3.pt, dropouts, 3 epochs, win_d 5, pos_emb
 loss, step 3011000: 0.7611 ema loss: 1.6530
 eval set loss: 1.7772
---- ckpt4.pt, dropouts, 3 epochs, win_d 5, add lr, pos_emb
+--- ckpt4.pt, dropouts, 3~ epochs, win_d 5, lr, pos_emb
+loss, step 3000000: 1.0191 ema loss: 1.6219 lr: 2.35e-04
+eval set loss: 1.7419
+--- ckpt4.pt, dropouts, 4 epochs, win_d 5, lr, pos_emb
+loss, step 4015000: 4.3445 ema loss: 1.5732 lr: 1.00e-04
+eval set loss: 1.7171
+--- ckpt5.pt, dropouts, 4 epochs, win_d 15, lr, pos_emb
 
---- ckpt5.pt, dropouts, n epochs, win_d 9, pos_emb
-
---- ckpt6.pt, dropouts, n epochs, win_d 15, pos_emb
-
---- ckpt7.pt, default, 1 epoch, win_d 5, no pos_emb 
+--- ckpt6.pt, default, 1 epoch, win_d 5,  lr, no pos_emb 
