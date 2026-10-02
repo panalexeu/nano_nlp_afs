@@ -17,5 +17,7 @@ eval set loss: 1.7419
 loss, step 4015000: 4.3445 ema loss: 1.5732 lr: 1.00e-04
 eval set loss: 1.7171
 --- ckpt5.pt, dropouts, 4 epochs, win_d 15, lr, pos_emb
-
---- ckpt6.pt, default, 1 epoch, win_d 5,  lr, no pos_emb 
+loss, step 4015000: 1.6469 ema loss: 1.5376 lr: 1.00e-04
+eval set loss: 1.6818
+--- ckpt6.pt, dropouts, 4 epochs, win_d 15, hidden_d 900, lr, pos_emb
+--- ckpt7.pt, default, 1 epoch, win_d 5,  lr, no pos_emb 
