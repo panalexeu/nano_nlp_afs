@@ -5,7 +5,8 @@ eval set loss: 1.7475
 loss, step 1003000: 0.0530 ema loss: 1.8382
 eval set loss: 2.0014
 --- ckpt2.pt, dropouts, 1 epoch, win_d 5, pos_emb
-
+loss, step 1003000: 2.1513 ema loss: 1.9059
+eval set loss: 1.9427
 --- ckpt3.pt, dropouts, 3 epochsm win_d 5, pos_emb
 
 --- ckpt4.pt, dropouts, n epochs, win_d 9, pos_emb
