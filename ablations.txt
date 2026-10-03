@@ -1,23 +1,30 @@
---- ckpt.pt, default, 3 epochs, win_d 5, pos_emb
+--- ckpt.pt, default, 3 epochs, win_d 5, pos_emb, max_pool
 loss, step 3011000: 0.3951 ema loss: 1.4671
 eval set loss: 1.7475
---- ckpt1.pt, default, 1 epoch, win_d 5, pos_emb
+--- ckpt1.pt, default, 1 epoch, win_d 5, pos_emb, max_pool
 loss, step 1003000: 0.0530 ema loss: 1.8382
 eval set loss: 2.0014
---- ckpt2.pt, dropouts, 1 epoch, win_d 5, pos_emb
+--- ckpt2.pt, dropouts, 1 epoch, win_d 5, pos_emb, max_pool
 loss, step 1003000: 2.1513 ema loss: 1.9059
 eval set loss: 1.9427
---- ckpt3.pt, dropouts, 3 epochs, win_d 5, pos_emb
+--- ckpt3.pt, dropouts, 3 epochs, win_d 5, pos_emb, max_pool
 loss, step 3011000: 0.7611 ema loss: 1.6530
 eval set loss: 1.7772
---- ckpt4.pt, dropouts, 3~ epochs, win_d 5, lr, pos_emb
+--- ckpt4.pt, dropouts, 3~ epochs, win_d 5, lr, pos_emb, max_pool
 loss, step 3000000: 1.0191 ema loss: 1.6219 lr: 2.35e-04
 eval set loss: 1.7419
---- ckpt4.pt, dropouts, 4 epochs, win_d 5, lr, pos_emb
+--- ckpt4.pt, dropouts, 4 epochs, win_d 5, lr, pos_emb, max_pool
 loss, step 4015000: 4.3445 ema loss: 1.5732 lr: 1.00e-04
 eval set loss: 1.7171
---- ckpt5.pt, dropouts, 4 epochs, win_d 15, lr, pos_emb
+--- ckpt5.pt, dropouts, 4 epochs, win_d 15, lr, pos_emb, max_pool
 loss, step 4015000: 1.6469 ema loss: 1.5376 lr: 1.00e-04
 eval set loss: 1.6818
---- ckpt6.pt, dropouts, 4 epochs, win_d 15, hidden_d 900, lr, pos_emb
---- ckpt7.pt, default, 1 epoch, win_d 5,  lr, no pos_emb 
+--- ckpt6.pt, dropouts, 4 epochs, win_d 15, hidden_d 900, lr, pos_emb, max_pool
+loss, step 4015000: 0.6910 ema loss: 1.4265 lr: 1.00e-04
+eval set loss: 1.7091
+--- ckpt7.pt, dropouts 1 epoch, win_d 5,  lr, no pos_emb, max_pool
+loss, step 1003000: 0.0474 ema loss: 1.9465 lr: 1.00e-04
+eval set loss: 1.9650
+--- ckpt8.pt, dropouts 1 epoch, win_d 5,  lr, pos_emb, mean pool 
+loss, step 1003000: 3.4697 ema loss: 3.1032 lr: 1.00e-04
+eval set loss: 3.1327
